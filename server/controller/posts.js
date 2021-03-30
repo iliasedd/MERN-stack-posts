@@ -6,7 +6,7 @@ const getPost = async (req, res) => {
     
     try {
         const post = await Post.findById(id)
-        res.status(200).json(post)
+        res.json(post)
     } catch (error) {
         res.status(404).json({ message: error.message })
     }
@@ -15,7 +15,7 @@ const getPost = async (req, res) => {
 const getPosts = async (req, res) => {
     try {
         const posts = await Post.find()
-        res.status(200).json(posts)
+        res.json(posts)
     } catch (error) {
         res.status(404).json({ message: error.message })
     }
@@ -28,7 +28,7 @@ const updatePost = async (req, res) => {
 
     if (mongoose.Types.ObjectId.isValid(id)) {
         const updatedPost = await Post.findByIdAndUpdate(id, post, { new: true })
-        res.status(200).json(updatedPost)
+        res.json(updatedPost)
     } else {
         res.status(404).json({ message: `no post with id: ${id}` })
     }
@@ -39,7 +39,7 @@ const createPost = async (req, res) => {
     const post = new Post({ title, message, creator, selectedFile, tags })
     try {
         const newPost = await post.save()
-        res.status(201).json(newPost)
+        res.json(newPost)
     } catch (error) {
         res.status(409).json({ message: error.message })
     }
